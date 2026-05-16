@@ -7,10 +7,10 @@ exo__Asset_updatedAt: 2026-05-09T11:15:30
 exo__Instance_class:
   - "[[38277bfa-d7f9-4a75-b856-b23276ab0db3]]"
 exo__Property_domain:
-  - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3|aiKnow__MemoryReference]]"
-  - "[[5398b88a-3324-4fb4-91d2-d66359b5f720|aiKnow__MemoryFeedback]]"
-  - "[[b07833f7-19fe-45cc-9011-72ac7db09577|aiKnow__MemoryProject]]"
-exo__Property_range: "[[dda12c48-6886-4624-8710-ed4ba92ce2b3|ims__Concept]]"
+  - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
+  - "[[5398b88a-3324-4fb4-91d2-d66359b5f720]]"
+  - "[[b07833f7-19fe-45cc-9011-72ac7db09577]]"
+exo__Property_range: "[[dda12c48-6886-4624-8710-ed4ba92ce2b3]]"
 exo__Asset_label: aiKnow__Memory_aboutConcept
 aliases:
   - aiKnow__Memory_aboutConcept
