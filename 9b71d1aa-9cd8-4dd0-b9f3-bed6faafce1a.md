@@ -5,7 +5,7 @@ exo__Asset_createdAt: 2026-05-01T16:44:39
 exo__Asset_createdBy: "[[de20a3f1-7483-4714-ab28-b45f5cf02c76]]"
 exo__Asset_updatedAt: 2026-05-09T11:15:30
 exo__Instance_class:
-  - "[[exo__Property]]"
+  - "[[38277bfa-d7f9-4a75-b856-b23276ab0db3]]"
 exo__Property_domain:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3|aiKnow__MemoryReference]]"
   - "[[5398b88a-3324-4fb4-91d2-d66359b5f720|aiKnow__MemoryFeedback]]"
