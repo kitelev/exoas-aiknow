@@ -1,4 +1,5 @@
 ---
+exo__Asset_uid: 78366774-d1f5-4e26-8d70-0930380bb6df
 exo__Asset_isDefinedBy: "[[!aiKnow-as]]"
 exo__Instance_class:
   - "[[exo__AssetSpace]]"

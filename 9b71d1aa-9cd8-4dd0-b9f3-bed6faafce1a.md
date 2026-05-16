@@ -1,9 +1,9 @@
 ---
 exo__Asset_uid: 9b71d1aa-9cd8-4dd0-b9f3-bed6faafce1a
 exo__Asset_isDefinedBy: "[[!aiKnow]]"
-exo__Asset_createdAt: 2026-05-01T16:44:39+0500
+exo__Asset_createdAt: 2026-05-01T16:44:39
 exo__Asset_createdBy: "[[de20a3f1-7483-4714-ab28-b45f5cf02c76]]"
-exo__Asset_updatedAt: 2026-05-09T11:15:30+0500
+exo__Asset_updatedAt: 2026-05-09T11:15:30
 exo__Instance_class:
   - "[[exo__Property]]"
 exo__Property_domain:
