@@ -2,7 +2,6 @@
 exo__Asset_uid: 9b71d1aa-9cd8-4dd0-b9f3-bed6faafce1a
 exo__Asset_isDefinedBy: "[[2ce77ac1-3f78-4f64-9dc1-41ea01da1ef0]]"
 exo__Asset_createdAt: 2026-05-01T16:44:39
-exo__Asset_createdBy: "[[de20a3f1-7483-4714-ab28-b45f5cf02c76]]"
 exo__Asset_updatedAt: 2026-05-09T11:15:30
 exo__Instance_class:
   - "[[38277bfa-d7f9-4a75-b856-b23276ab0db3]]"
