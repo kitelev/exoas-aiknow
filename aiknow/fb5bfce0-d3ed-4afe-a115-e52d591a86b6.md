@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: fb5bfce0-d3ed-4afe-a115-e52d591a86b6
 exo__Asset_createdAt: 2026-08-11T22:03:46
-exo__Asset_updatedAt: 2026-08-11T22:03:46
+exo__Asset_updatedAt: 2026-08-11T22:05:26
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -143,9 +143,7 @@ grep старой формулировки → 0). Цена промаха ну�
     for c in "$(command -v <tool> 2>/dev/null || true)" <прочие известные каталоги>/<tool>; do
       { [ -n "$c" ] && [ -x "$c" ]; } || continue
       v="$("$c" --version 2>/dev/null | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+' | head -1)"; [ -n "$v" ] || continue
-      [ -z "$bestv" ] || [ "$(printf '%s
-%s
-' "$bestv" "$v" | sort -V | tail -1)" = "$v" ] && { bestv="$v"; best="$c"; }
+      [ -z "$bestv" ] || [ "$(printf '%s\n%s\n' "$bestv" "$v" | sort -V | tail -1)" = "$v" ] && { bestv="$v"; best="$c"; }
     done
     BIN="$best"
   fi
