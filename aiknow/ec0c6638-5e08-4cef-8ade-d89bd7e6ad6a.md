@@ -1,0 +1,212 @@
+---
+exo__Asset_uid: ec0c6638-5e08-4cef-8ade-d89bd7e6ad6a
+exo__Asset_createdAt: 2026-09-06T22:10:47
+exo__Asset_updatedAt: 2026-09-06T22:10:47
+exo__Instance_class:
+  - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
+exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
+exo__Asset_label: "Правило: test-fixture-realism (полный текст; пилот rules-from-graph партия 4, 2026-09-06)"
+aliases:
+  - "Правило: test-fixture-realism (полный текст; пилот rules-from-graph партия 4, 2026-09-06)"
+  - test-fixture-realism
+exo__Asset_isDefinedBy: "[[2ce77ac1-3f78-4f64-9dc1-41ea01da1ef0]]"
+inbox__ExoAssistantKnowledge_decay: "[[06a5b9f9-da93-4234-883f-3f0cf65b2fba]]"
+inbox__ExoAssistantKnowledge_confidence: "[[227def30-f56f-4f5f-936d-f6a81ad73c96]]"
+---
+
+<!-- Added by /session-retrospective 2026-05-23 — root: 3 sequential false-positive fix releases shipped because stub-returning fixtures satisfied test contract but not real Obsidian API contract -->
+
+# Test fixture realism: production-shape required для API-integration changes
+
+При написании tests для кода, интегрирующегося с external API (Obsidian metadataCache, vault API, Node `fs`, network), фейки **должны mirror реальную API semantics**, а не просто возвращать passing values.
+
+## Когда правило срабатывает
+
+- Code change wraps/wires/wraps Obsidian API (`app.metadataCache.*`, `app.vault.*`, `MetadataCache`, `TFile`)
+- Code change integrates с internal services которые delegate to platform APIs (resolver pipelines, indexers, label lookup)
+- Test fixture создаёт mock возвращающий any non-null value (`mockReturnValue(SOMETHING)` без проверки input)
+- Change шипится через CI without manual production verification
+
+## Anti-pattern
+
+```ts
+// FAILS-IN-PROD pattern: stub returns the file regardless of input
+function makeApp(opts) {
+  return {
+    metadataCache: {
+      getFirstLinkpathDest: jest.fn().mockReturnValue(opts.dest ?? null),
+      //                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      //  returns whatever caller set, regardless of actual lookup semantics
+    }
+  };
+}
+
+it("resolves label to UID", () => {
+  const app = makeApp({ dest: CLASS_FILE, frontmatter: {...} });
+  expect(resolver("ems__Task")).toBe(CLASS_UID);  // PASSES — stub returned the file
+});
+// Real Obsidian: getFirstLinkpathDest('ems__Task','') → null, because the API
+// does NOT resolve aliases. The test passed but production fails.
+```
+
+## Required pattern
+
+Fake should mirror real API contract:
+
+```ts
+function makeApp(opts) {
+  const files = opts.files ?? [];
+  const fmMap = opts.frontmatters ?? new Map();
+  return {
+    vault: { getMarkdownFiles: () => files },
+    metadataCache: {
+      // Real Obsidian: returns null for unknown linkpaths, resolves
+      // basename-only matches. Aliases NOT autoresolved by this method.
+      getFileCache: (f) => {
+        const fm = fmMap.get(f.path);
+        return fm !== undefined ? { frontmatter: fm } : null;
+      }
+    }
+  };
+}
+```
+
+The fake should produce **realistic null/empty results** for inputs that wouldn't match in real Obsidian. Then your fix must do the real work (iterate, scan, match) — the test exercises the work, not the stub.
+
+## Verification path
+
+For Obsidian API behavior questions — use **DevTools eval** в живой Obsidian:
+
+```js
+// In Obsidian DevTools console (Cmd+Opt+I):
+app.metadataCache.getFirstLinkpathDest('ems__Task', '')        // → null (alias NOT resolved)
+app.metadataCache.getFirstLinkpathDest('ems__TaskPrototype','') // → null
+app.metadataCache.getFirstLinkpathDest('1b20a8f0-...md', '')   // → file (basename resolves)
+```
+
+This takes 30 seconds. It would have caught 3 consecutive false fixes.
+
+<!-- Added by /session-retrospective 2026-08-16 — root: фикстура наследования ранга (vteam-select-verify.py, задача 47a85e1e): предки писались «голыми» (uid + label + parent + rank), конвертер их не эмитил, и 6 осей краснели «по данным» при верном коде. -->
+## ⛔ Ассет-фикстура БЕЗ `exo__Instance_class` конвертером НЕ ЭМИТИТСЯ — оси краснеют «по данным» при верном коде
+
+Правило выше — про фикстуру, чья **форма значения** расходится с продом. Соседний, более грубый
+случай: фикстура вообще **не доезжает до графа**. Конвертер vault→RDF пропускает ассет, у которого
+нет `exo__Instance_class`, **целиком** — ни одного трипла, включая те свойства, ради которых файл и
+создавался.
+
+- ⚠ **Симптом читается как дефект ПРЕДМЕТА, а не фикстуры:** набор зелен там, где данные берутся у
+  «полноценных» ассетов, и красен ровно на осях, опирающихся на урезанные. То есть выглядит как
+  «моя новая логика не работает», хотя логика верна, а её вход пуст.
+- ⛤ **Соблазн писать предков/вспомогательные ассеты «голыми» СИЛЁН:** им не нужен класс по смыслу
+  (они не кандидаты очереди, не участники выборки — они лишь звено цепочки или носитель одного
+  свойства). Ровно поэтому класс и опускают.
+- ✅ **Floor: у КАЖДОГО файла фикстуры есть `exo__Instance_class`** — даже у чисто-структурного.
+  Класс не делает его кандидатом: кандидатура определяется предикатом, по которому предмет
+  отбирает (`flow__WorkItem_stage`, `ems__Effort_status`, …), а не фактом типизации.
+- ⛤ **Диагноз даёт ТРАССИРОВКА ПРЕДМЕТА, если она печатает РАЗМЕРЫ ВХОДА.** Строка вида
+  `источники: flow=1 po=1 рёбер-родителя=7` при ожидаемых `5 / 1 / 13` называет дефект за секунды:
+  входа меньше, чем положено ⇒ дело не в логике. Печатать размер входа рядом с числом находок —
+  дешёвая привычка, окупающаяся ровно здесь (`self-satisfying-metric-weak-verifier` §A9).
+- ⚠ **Ожидаемые числа входа выводить ДО прогона** вместе с ожидаемым выходом — иначе `flow=1`
+  выглядит правдоподобно и вопросов не вызывает.
+
+**Empirical 2026-08-16** (харнесс селектора vteam, наследование ранга): 10 предков цепочки написаны
+без `exo__Instance_class` ⇒ в графе их не оказалось; получено 7 рёбер `ems__Effort_parent` вместо 13
+и 1 flow-ранг вместо 5, 6 осей из 10 красные. Одна правка фикстуры (добавить класс) → 21/21 зелены
+без единой правки движка. Цена: один прогон харнесса (~13 с).
+
+<!-- Added by /session-retrospective 2026-08-25 (vteam-73cf98ab, MemberArchitect) — root: ось G15 краснела при исправном предмете; §выше требует ОБЯЗАТЕЛЬНОЕ поле (Instance_class), но моё поле стало обязательным ПОЗЖЕ, коммитом-фиксом, и фикстура осталась валидной по старой области. Тикет перечислял 4 подозреваемых, ВСЕ в предмете; ни один не был верен. -->
+### ⛔ ТРЕТЬЯ форма того же наблюдаемого: поле стало обязательным ПОЗЖЕ — предмет СУЗИЛ вход коммитом-фиксом, а фикстура осталась в прежней (широкой) форме
+
+§выше — про поле, обязательное **по построению** (без `Instance_class` ассет не эмитится **всегда**).
+Третья форма отличается **временем**: фикстура была **валидна**, пока предмет не сузил область входа
+отдельным коммитом. Сигнатура при этом не менялась, вызов не менялся, компиляции нет ⇒ ни один
+механический гейт расхождения не видит.
+
+⛤ **Сужение почти всегда — ФИКС, а не рефакторинг**, и потому выглядит невинно: «считать только
+прогоны СО спавном» (иначе отказ пишет прогон → cooldown видит его свежим → отказывает снова),
+«брать только завершённые», «игнорировать записи без исхода». Автор фикса чинит **самоблокировку**
+и не думает о фикстурах — их пишет другой человек в другой сессии.
+
+- ⛔ **Отказ читается как дефект ПРЕДМЕТА, и тикет это ЗАКРЕПЛЯЕТ.** Ось красная ⇒ подозреваемых
+  ищут в движке, и тикет перечисляет их списком (форма IRI, тип литерала, часовой пояс, подстановка
+  времени). Список правдоподобен, все пункты — реальные классы дефектов корпуса, и **ни один не
+  верен**: фикстура в нём не фигурирует вовсе, потому что её никто не подозревает.
+- ✅ **Floor — ЗОНД, различающий «не засеяно» и «не сджойнено», ОДНИМ прогоном.** Построить фикстуру
+  **кодом самого харнесса** (`importlib` его `build_vault`/`seed_*` — приём «ТОЧЕЧНЫЙ ЗОНД: одна
+  фикстура, оба предмета, ±мутация» из `integration-test-revert-verify`) и прогнать **два** счёта
+  на ОДНОЙ фикстуре: джойн предмета дословно и «голый» счёт по полю, которое фикстура точно пишет:
+
+  | фикстура | джойн предмета | голый счёт по посеянному полю |
+  |---|---|---|
+  | как есть | **0** | 1 |
+  | + недостающее поле | **1** | 1 |
+
+  `голый = 1` в **обеих** строках — и есть дискриминатор: посев, время и шкала верны ⇒ мёртв именно
+  джойн ⇒ дефект в **фикстуре**, а не в предмете. Он снимает весь список подозреваемых сразу, а не
+  по одному.
+- ⚠ **Симптом-tell, ловится ЧТЕНИЕМ `git log` предмета:** ось краснеет, а предмет за окно **менялся**
+  — и менялся **сужением условия** (`+ ?r <предикат> ?o` в запросе, `&&` в гварде, новый `FILTER`).
+  Один `git log -S '<предикат из джойна>' -- <предмет>` называет коммит и его причину.
+- ⛤ **Форму поля брать у ПРОДА, а не «какую-нибудь».** Прод-писатель пишет ссылку **linkpath по
+  полной метке** (``flow__OutcomeWorkerCompleted``); bare-UID эмитится **symbolic**, и джойн
+  остаётся мёртвым — то есть «починка» фикстуры воспроизведёт ровно тот дефект, который чинишь
+  (`sparql-iri-form-pre-verify` §Та же ось на стороне ПИСАТЕЛЯ).
+- ⛔ **Не «ослаблять ось» и не расширять пробу обратно.** Сужение — намеренная защита; вернув
+  широкий счёт, вернёшь самоблокировку. Чинится **фикстура**, и это надо сказать вслух в тикете,
+  иначе следующий читатель прочтёт красноту как разрешение ослабить предмет.
+- ⛤ **Отличать от §ЖИВОЙ ДЕФЕКТ** (`integration-test-revert-verify`): там починили **данные**, и
+  фикстура потеряла унаследованную аномалию; здесь починили **предмет**, и фикстура перестала
+  попадать в его область. Направление времени одно, чинится в разных местах.
+
+**Empirical 2026-08-25** (тикет `73cf98ab`, `vteam-admit-verify.py`): коммит `5c18a7a` (08-23 19:49)
+сузил пробу `cooldownElapsed` до прогонов с `flow__Run_outcome ∈ {WorkerCompleted}`; `seed_run()`
+продолжал писать прогоны **без исхода** ⇒ джойн 0 при голом счёте 1, ось G15 красная при исправном
+предмете двое суток. Зонд опроверг **все четыре** подозреваемых тикета (dual-IRI · typed-литерал ·
+`Z`-метка · `VTEAM_NOW_TS`) одним прогоном. Фикс — 16 строк в **фикстуре**: контроль 22/22, 5/5
+мутантов краснят ровно ожидаемое; revert-verify на копии (снять поле) → `КОНТРОЛЬ КРАСНЫЙ (1): G15`
+при зелёных G16/G17 ⇒ правка краснит РОВНО свою ось.
+
+<!-- Added by /session-retrospective 2026-08-29 (vteam-e7acd416) — root: 3 раунда починки фикстуры. -->
+### ⛔ ЧЕТВЁРТАЯ форма: гарантия зависит от АССЕТСПЕЙСА, который сборщик НЕ КОПИРУЕТ
+
+Формы выше — про ОДИН ассет; четвёртая — про **сборщик**: копирует он **СПИСКОМ**, а гарантия
+опирается на то, что вне списка (класс-источник, команда, основание).
+
+- ⛔ **Ось ЗЕЛЕНА ПО НЕВЕРНОЙ ПРИЧИНЕ, и это тише красноты:** ждёшь отказ «класс вне карты»,
+  получаешь его от НЕРЕЗОЛВИМОСТИ класса ⇒ гарантия не проверена, набор рапортует успех.
+- ⚠ **Tell:** `apply` отвечает `No command found`; ссылка на класс уезжает в граф **литералом**
+  вместо symbolic-IRI. ⛤ Прогон по ЖИВОМУ vault класс не ловит.
+- ✅ **Floor: перечислить, ЧТО ЧИТАЕТ предмет на проверяемом пути**, сверить со списком копируемых,
+  недостающее **досеивать точечно**, а не расширять список.
+
+**Empirical 2026-08-28** (`vteam-record-verify.py`): `SRC_SPACES` = flow/team/exo, `ems__Task` — в
+`exoas-public`, команда — в `exoas-exocmd`.
+
+## Разборы случаев — ВЫНЕСЕНЫ В ГРАФ (справочник on-demand)
+
+⛤ **4 разбора** (~15 КБ) — справочник on-demand: читают, когда механизм **уже соврал**, а не перед действием.
+
+⛔ Даты НЕ уникальны: строка, помеченная `⛔` после даты, делит её с соседней — разрешать по теме.
+
+| # | дата | Тема (симптом ⇒ действие) |
+|---|---|---|
+| **§A1** | `2026-07-31` | твоя проверка кандидата ВЗРЫВАЕТСЯ сырым низкоуровневым исключением (`Literal value cannot be empty`) там, где прод тот же вход просто МОЛЧА пропускает ⇒ ты позвал внутренний API напрямую, а прод идёт через обёртку с пре-валидацией и глотанием ошибок ⇒ прочитать код обёртки НЕПОСРЕДСТВЕННО до и после её вызова внутреннего API и воспроизвести обе половины. ⛔ «Пропущено» ≠ «прошло»: объект, который индексатор скипает, даёт НОЛЬ данных — репортить как нарушение |
+| **§A2** | `2026-07-31` | серия проб подряд опровергает гипотезу за гипотезой, и все пробы устроены ОДИНАКОВО по времени (плотный цикл) ⇒ ты N раз проверил один режим, а не N гипотез: механизмы, живущие в ПАУЗАХ (сжатие страниц, TTL, GC, переподключение), плотный цикл не воспроизводит ПО ПОСТРОЕНИЮ ⇒ выписать временной профиль прода и сравнить со своим; мерить до вызова / после вызова / после паузы. ⚠ Фиксировать со-фактор (свободная память, нагрузка) — иначе «не воспроизвелось» неинтерпретируемо |
+| **§A3** | `2026-08-03` | фича не срабатывает на 100 % реальных ассетов, а тесты зелёные ⇒ фикстура воспроизвела ФОРМУ значения, но не ТИП: незакавыченная дата в YAML приходит `Date` (UTC-полночь), закавыченная — строка, и `typeof raw !== "string"` отбрасывает всё живое ⇒ прогнать реальный парсер на реальном ассете (`js-yaml` + `typeof`) ДО написания type-guard; грепнуть `instanceof Date` в проде — конвенция сильнее интуиции. ⛔ Обе формы сосуществуют (`create` пишет голым, `set-property` квотирует) ⇒ потребитель обязан принимать обе |
+| **§A4** | `2026-08-09` | ось краснеет 1 раз из N на НЕИЗМЕННОМ коде, и гипотеза уходит во внешний шум (панель, сеть, планировщик) ⇒ фикстура рассогласована САМА С СОБОЙ: две записи одной логической величины вычислены двумя независимыми замерами, а предмет сравнивает их на равенство ⇒ ОДИН источник на величину (вторая запись ЧИТАЕТ первую), порядок закрепить fail-loud гвардом. ⛤ Мутант обязан быть ДЕТЕРМИНИРОВАННЫМ (`+1` к одной записи), возврат прежней формы воспроизводит дефект вероятностно |
+
+⛤ **Справочник:** `5234c16d-e2e7-4857-a1f0-40afdb63589a`, якоря **§A1-§A4**.
+Рецепт адресного чтения (один на корпус) — `rule-carrier-follows-function` §«Читать справочник АДРЕСНО».
+
+
+## Cross-references
+
+- `harness-invocation-surface.md` — **ТРЕТЬЯ ось расхождения харнесса с продом**, ортогональная обеим здешним (форма данных · граница стаба): предмет **ЗАПУСКАЕТСЯ иначе**, чем в проде (`bash "$SUT"` обходит бит исполнения, который прод проверяет, зовя по пути). Закрытие оси данных и оси стаба её НЕ закрывает — эмпирика 2026-08-07: production-shape фикстуры + процессная граница стаба + 10/10 зелёных при `permission denied` в проде.
+- `integration-test-revert-verify.md` — the parent rule (revert→fail/restore→pass). This addendum is the *fixture-not-loading* failure mode of the same FP family: the test passes both ways because the gate never armed, not because the assertion is wrong.
+- `verify-before-assert.md` — sibling rule: don't make confident API capability claims without grep/Read. JSDoc claiming `getFirstLinkpathDest resolves aliases` was a verify-before-assert violation amplified by the test stub.
+- `self-verification.md` — UI smoke is the natural "verify before declaring done" gate. Skipping it after CI green is treating CI as authority on behaviors it doesn't measure.
+- `ui-smoke-transitive-proof.md` — sibling rule: when UI smoke physically blocked, transitive proof from identical verified code path is acceptable.
+
+⛤ **Эмпирика** (8 фрагм.: 5 секц. + 3 абз.) → `~/.claude/rules-archive/test-fixture-realism.md`
+
