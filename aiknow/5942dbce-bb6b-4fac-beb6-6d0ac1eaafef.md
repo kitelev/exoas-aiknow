@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: 5942dbce-bb6b-4fac-beb6-6d0ac1eaafef
 exo__Asset_createdAt: 2026-09-06T20:42:07
-exo__Asset_updatedAt: 2026-09-06T20:42:07
+exo__Asset_updatedAt: 2026-09-14T12:01:41
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -12,6 +12,12 @@ aliases:
 exo__Asset_isDefinedBy: "[[2ce77ac1-3f78-4f64-9dc1-41ea01da1ef0]]"
 inbox__ExoAssistantKnowledge_decay: "[[06a5b9f9-da93-4234-883f-3f0cf65b2fba]]"
 inbox__ExoAssistantKnowledge_confidence: "[[227def30-f56f-4f5f-936d-f6a81ad73c96]]"
+aiKnow__Memory_aboutConcept:
+  - "[[a4e611fb-8eeb-4d75-a012-f826ead8392b]]"
+  - "[[a0ce65bd-da6d-4a75-848c-d718d96c4301]]"
+  - "[[f896ed21-fbee-4f60-8390-defc99dcfbd3]]"
+  - "[[9560f2fa-8520-4fad-bb5c-7fa99491746a]]"
+  - "[[10e42250-6f29-4910-8b69-f5cecff06849]]"
 ---
 
 <!-- Added by /session-retrospective 2026-08-03 — root: задача 797dca69 (бот заводит баг для петли разработки). Изолированный писатель и потребитель живут в РАЗНЫХ vault; два независимых механизма молча роняют единицу работы — якорь уводит её в невидимое потребителю пространство, а ссылку на родителя писатель физически не может поставить. -->

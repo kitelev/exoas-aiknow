@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: 37b5a7de-32eb-459d-ab69-f7cd253dbbfd
 exo__Asset_createdAt: 2026-09-06T16:47:02
-exo__Asset_updatedAt: 2026-09-06T16:47:02
+exo__Asset_updatedAt: 2026-09-14T11:50:04
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -12,6 +12,13 @@ aliases:
 exo__Asset_isDefinedBy: "[[2ce77ac1-3f78-4f64-9dc1-41ea01da1ef0]]"
 inbox__ExoAssistantKnowledge_decay: "[[06a5b9f9-da93-4234-883f-3f0cf65b2fba]]"
 inbox__ExoAssistantKnowledge_confidence: "[[227def30-f56f-4f5f-936d-f6a81ad73c96]]"
+aiKnow__Memory_aboutConcept:
+  - "[[cbbe4f17-ee27-4440-9af5-008e58b3662f]]"
+  - "[[1abc236b-b3db-430c-808f-7b80572dcc3e]]"
+  - "[[0e5eb65b-7b18-4c0e-8550-9d3f45bb49f1]]"
+  - "[[e7d86c2a-238c-4d0d-be22-202bc69e02a3]]"
+  - "[[2ae98f7e-9675-47bf-8991-4940a632b71d]]"
+  - "[[95860757-4328-4a4e-b1df-1bb5773c560c]]"
 ---
 
 # Child-retro-then-close: финальный шаг жизненного цикла дочерней сессии

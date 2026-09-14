@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: ec0c6638-5e08-4cef-8ade-d89bd7e6ad6a
 exo__Asset_createdAt: 2026-09-06T22:10:47
-exo__Asset_updatedAt: 2026-09-11T14:57:08
+exo__Asset_updatedAt: 2026-09-14T12:35:07
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -12,6 +12,14 @@ aliases:
 exo__Asset_isDefinedBy: "[[2ce77ac1-3f78-4f64-9dc1-41ea01da1ef0]]"
 inbox__ExoAssistantKnowledge_decay: "[[06a5b9f9-da93-4234-883f-3f0cf65b2fba]]"
 inbox__ExoAssistantKnowledge_confidence: "[[227def30-f56f-4f5f-936d-f6a81ad73c96]]"
+aiKnow__Memory_aboutConcept:
+  - "[[3c22a9c1-8488-458a-86b9-c8cf10f2f931]]"
+  - "[[16a725fd-8ef7-425a-af5b-abdec027b325]]"
+  - "[[5528b5d9-4bbb-4bcd-9847-65e3f4af9aff]]"
+  - "[[25b8a4e6-1628-4486-b576-732c3af81c70]]"
+  - "[[b465f292-ec70-4e40-bf60-71b06be9e758]]"
+  - "[[2a4b4453-7132-45d6-a7b7-eb824fa8f20e]]"
+  - "[[d31fbf33-ecb7-4c95-aed1-f7ac05207d9a]]"
 ---
 
 <!-- Added by /session-retrospective 2026-05-23 — root: 3 sequential false-positive fix releases shipped because stub-returning fixtures satisfied test contract but not real Obsidian API contract -->

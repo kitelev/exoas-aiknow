@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: e0b69990-bb3b-4c2d-ab4d-7fceb3cccaa6
 exo__Asset_createdAt: 2026-09-06T15:30:43
-exo__Asset_updatedAt: 2026-09-11T22:53:35
+exo__Asset_updatedAt: 2026-09-14T11:45:03
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -12,6 +12,12 @@ aliases:
 exo__Asset_isDefinedBy: "[[2ce77ac1-3f78-4f64-9dc1-41ea01da1ef0]]"
 inbox__ExoAssistantKnowledge_decay: "[[06a5b9f9-da93-4234-883f-3f0cf65b2fba]]"
 inbox__ExoAssistantKnowledge_confidence: "[[227def30-f56f-4f5f-936d-f6a81ad73c96]]"
+aiKnow__Memory_aboutConcept:
+  - "[[185bb454-cb2d-4d91-84cf-bbc8656de13a]]"
+  - "[[45f9f4e0-1975-474b-803e-d0076a90a328]]"
+  - "[[8377ccb9-404f-4c91-8035-acc18ef7de4b]]"
+  - "[[14782b91-1630-4145-b981-5b7277c907a6]]"
+  - "[[20e617af-84ab-4c8b-90d1-973a83c12a62]]"
 ---
 
 

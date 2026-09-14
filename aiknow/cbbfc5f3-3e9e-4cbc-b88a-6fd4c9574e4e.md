@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: cbbfc5f3-3e9e-4cbc-b88a-6fd4c9574e4e
 exo__Asset_createdAt: 2026-09-06T11:24:06
-exo__Asset_updatedAt: 2026-09-06T11:24:06
+exo__Asset_updatedAt: 2026-09-14T11:18:11
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -12,6 +12,13 @@ aliases:
 exo__Asset_isDefinedBy: "[[2ce77ac1-3f78-4f64-9dc1-41ea01da1ef0]]"
 inbox__ExoAssistantKnowledge_decay: "[[06a5b9f9-da93-4234-883f-3f0cf65b2fba]]"
 inbox__ExoAssistantKnowledge_confidence: "[[227def30-f56f-4f5f-936d-f6a81ad73c96]]"
+aiKnow__Memory_aboutConcept:
+  - "[[0f448826-1d6c-43bd-90af-8f8c73931643]]"
+  - "[[b0d07c5f-4b59-4b46-9da9-fc112358ab6b]]"
+  - "[[2289846b-de12-4eb5-a485-61b1056e4613]]"
+  - "[[0e5eb65b-7b18-4c0e-8550-9d3f45bb49f1]]"
+  - "[[1159b3a3-0715-40fb-b4a4-ba0a9eb56713]]"
+  - "[[d1f763fc-08b2-4c0e-9f93-df888228f325]]"
 ---
 
 ⛤ **ПИЛОТ 2026-09-06 «корпус правил из графа по симптому»** — это ПОЛНЫЙ текст правила `gui-input-verify-then-poll` из `~/dotfiles/.claude/rules/`, перенесённый в граф как ИСТОЧНИК ИСТИНЫ. Во флоре (`~/.claude/rules/gui-input-verify-then-poll.md`) оставлен РОУТЕР — принцип · триггеры · оглавление · индекс разборов; он генерируется из этого текста (`~/.claude/bin/rules-graph-pilot-stub.py`). ⛔ Не читать целиком «на всякий случай» — вход через роутер во флоре, чтение АДРЕСНОЕ по заголовку раздела:
