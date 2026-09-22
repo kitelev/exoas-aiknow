@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: 43adc5be-e9d0-4ad0-ad76-5aa95bb140cd
 exo__Asset_createdAt: 2026-09-21T10:19:03
-exo__Asset_updatedAt: 2026-09-21T23:19:15
+exo__Asset_updatedAt: 2026-09-22T09:57:20
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -12,6 +12,10 @@ aliases:
 exo__Asset_isDefinedBy: "[[2ce77ac1-3f78-4f64-9dc1-41ea01da1ef0]]"
 inbox__ExoAssistantKnowledge_decay: "[[06a5b9f9-da93-4234-883f-3f0cf65b2fba]]"
 inbox__ExoAssistantKnowledge_confidence: "[[227def30-f56f-4f5f-936d-f6a81ad73c96]]"
+aiKnow__Memory_aboutConcept:
+  - "[[4c436c3e-05de-47f7-af8d-00afc673ac1b]]"
+  - "[[22877541-d004-49bc-b5a4-15086d58df3a]]"
+  - "[[a0ce65bd-da6d-4a75-848c-d718d96c4301]]"
 ---
 <!-- Added by /session-retrospective 2026-05-30 — root: premature /rfc invocation для plugin bug fix; pivoted mid-flow к ems__Task pattern -->
 
