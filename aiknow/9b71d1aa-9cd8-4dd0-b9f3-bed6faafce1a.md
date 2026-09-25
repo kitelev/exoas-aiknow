@@ -2,13 +2,13 @@
 exo__Asset_uid: 9b71d1aa-9cd8-4dd0-b9f3-bed6faafce1a
 exo__Asset_isDefinedBy: "[[2ce77ac1-3f78-4f64-9dc1-41ea01da1ef0]]"
 exo__Asset_createdAt: 2026-05-01T16:44:39
-exo__Asset_updatedAt: 2026-05-09T11:15:30
+exo__Asset_updatedAt: 2026-09-25T21:44:16
 exo__Instance_class:
   - "[[38277bfa-d7f9-4a75-b856-b23276ab0db3]]"
 exo__Property_domain:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
   - "[[5398b88a-3324-4fb4-91d2-d66359b5f720]]"
-  - "[[b07833f7-19fe-45cc-9011-72ac7db09577]]"
+  - "[[b0474610-5fa7-4ec4-a947-f85f26e93455]]"
 exo__Property_range: "[[dda12c48-6886-4624-8710-ed4ba92ce2b3]]"
 exo__Asset_label: aiKnow__Memory_aboutConcept
 aliases:
