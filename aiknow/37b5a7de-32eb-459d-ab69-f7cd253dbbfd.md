@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: 37b5a7de-32eb-459d-ab69-f7cd253dbbfd
 exo__Asset_createdAt: 2026-09-06T16:47:02
-exo__Asset_updatedAt: 2026-09-14T11:50:04
+exo__Asset_updatedAt: 2026-09-27T08:28:24
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -222,7 +222,7 @@ D6 судит по НАБЛЮДАЕМОМУ поведению (нет live-ма
 
 - `~/dotfiles/.claude/rules/verify-before-assert.md` — child PROGRESS-ping / RFC-edit ≠ authoritative; verify через gh api / functional proof.
 
-- `~/dotfiles/.claude/rules/exo-layout-deploy-vault-data.md` — §Suppression + BEFORE/AFTER floor (deploy-verification корень этого addendum).
+- `~/.claude/skills/exo-layout-deploy-vault-data/SKILL.md` — §Suppression + BEFORE/AFTER floor (deploy-verification корень этого addendum).
 
 - `~/.claude/skills/orchestrator/SKILL.md` R7 — каноническое место.
 - `~/.claude/skills/session-retrospective/SKILL.md` — что именно делает retro (hidden mandatory steps).

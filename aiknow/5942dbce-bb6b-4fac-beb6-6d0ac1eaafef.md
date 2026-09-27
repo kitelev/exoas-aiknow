@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: 5942dbce-bb6b-4fac-beb6-6d0ac1eaafef
 exo__Asset_createdAt: 2026-09-06T20:42:07
-exo__Asset_updatedAt: 2026-09-14T12:01:41
+exo__Asset_updatedAt: 2026-09-27T08:28:29
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -109,11 +109,11 @@ aiKnow__Memory_aboutConcept:
 
 ## Cross-references
 
-- `~/dotfiles/.claude/rules/homoiconic-external-engine-config.md` — изоляция бот-vault (sandbox-by-absence) и её обратная сторона; §Addendum 2026-07-30 — писатель в cold-AS падает молча, когда его пространство размонтировали.
-- `~/dotfiles/.claude/rules/exocortex-cold-archive-assetspace.md` §Addendum 2026-08-02 — тот же класс со стороны ЧТЕНИЯ: несмонтированное пространство молча занижает выдачу.
-- `~/dotfiles/.claude/rules/argv-vector-still-injects-into-the-callee-parser.md` — почему дискриминатор читается только в позиции значения флага.
+- `~/.claude/skills/homoiconic-external-engine-config/SKILL.md` — изоляция бот-vault (sandbox-by-absence) и её обратная сторона; §Addendum 2026-07-30 — писатель в cold-AS падает молча, когда его пространство размонтировали.
+- `~/.claude/skills/exocortex-cold-archive-assetspace/SKILL.md` §Addendum 2026-08-02 — тот же класс со стороны ЧТЕНИЯ: несмонтированное пространство молча занижает выдачу.
+- `~/.claude/skills/argv-vector-still-injects-into-the-callee-parser/SKILL.md` — почему дискриминатор читается только в позиции значения флага.
 - `~/dotfiles/.claude/rules/vault-asset-creation.md` — `set-property` guarded-статус; create как dogfood-путь; SHACL floor после CLI-мутаций.
-- `~/dotfiles/.claude/rules/pmbok-wbs-nested-assets.md` — транзитивная WBS-цепочка и почему внутренний узел не может быть листом.
+- `~/.claude/skills/pmbok-wbs-nested-assets/SKILL.md` — транзитивная WBS-цепочка и почему внутренний узел не может быть листом.
 
 ⛤ **Эмпирика** (1 фрагм.) → `~/.claude/rules-archive/cross-boundary-workitem-routing.md`
 

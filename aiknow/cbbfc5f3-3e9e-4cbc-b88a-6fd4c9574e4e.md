@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: cbbfc5f3-3e9e-4cbc-b88a-6fd4c9574e4e
 exo__Asset_createdAt: 2026-09-06T11:24:06
-exo__Asset_updatedAt: 2026-09-16T13:52:58
+exo__Asset_updatedAt: 2026-09-27T08:28:39
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -21,7 +21,7 @@ aiKnow__Memory_aboutConcept:
   - "[[d1f763fc-08b2-4c0e-9f93-df888228f325]]"
 ---
 
-⛤ **ПИЛОТ 2026-09-06 «корпус правил из графа по симптому»** — это ПОЛНЫЙ текст правила `gui-input-verify-then-poll` из `~/dotfiles/.claude/rules/`, перенесённый в граф как ИСТОЧНИК ИСТИНЫ. Во флоре (`~/.claude/rules/gui-input-verify-then-poll.md`) оставлен РОУТЕР — принцип · триггеры · оглавление · индекс разборов; он генерируется из этого текста (`~/.claude/bin/rules-graph-pilot-stub.py`). ⛔ Не читать целиком «на всякий случай» — вход через роутер во флоре, чтение АДРЕСНОЕ по заголовку раздела:
+⛤ **ПИЛОТ 2026-09-06 «корпус правил из графа по симптому»** — это ПОЛНЫЙ текст правила `gui-input-verify-then-poll` из `~/dotfiles/.claude/rules/`, перенесённый в граф как ИСТОЧНИК ИСТИНЫ. Во флоре (`~/.claude/skills/gui-input-verify-then-poll/SKILL.md`) оставлен РОУТЕР — принцип · триггеры · оглавление · индекс разборов; он генерируется из этого текста (`~/.claude/bin/rules-graph-pilot-stub.py`). ⛔ Не читать целиком «на всякий случай» — вход через роутер во флоре, чтение АДРЕСНОЕ по заголовку раздела:
 
 ```bash
 REF=<путь этого ассета>
@@ -220,7 +220,7 @@ LIVE=1 ⇒ «не селектор» ⇒ пропустил бы `send-keys` в 
 
 ## Cross-references
 
-- `~/dotfiles/.claude/rules/waiting-decision-ping-before-selector.md` — ⛤ **отвечает на ТОТ ЖЕ симптом**
+- `~/.claude/skills/waiting-decision-ping-before-selector/SKILL.md` — ⛤ **отвечает на ТОТ ЖЕ симптом**
   «в панели `Enter to select`»: там про ПРОИСХОЖДЕНИЕ панели (вопрос ассистента / чужой селектор /
   permission-prompt харнесса), здесь — про то, что панель могла просто НАПЕЧАТАТЬ эти слова.
   Порядок дискриминаторов — в блоке над PRE-SEND GATE выше.

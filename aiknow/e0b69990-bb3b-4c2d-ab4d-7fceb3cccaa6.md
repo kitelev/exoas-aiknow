@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: e0b69990-bb3b-4c2d-ab4d-7fceb3cccaa6
 exo__Asset_createdAt: 2026-09-06T15:30:43
-exo__Asset_updatedAt: 2026-09-14T11:45:03
+exo__Asset_updatedAt: 2026-09-27T08:28:22
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -159,9 +159,9 @@ Plain PROGRESS-пинги НЕ требуют полноценного отве�
 
 ## Cross-references
 
-- `~/dotfiles/.claude/rules/event-driven-coordination.md` — комплементарная дисциплина (не polling); здесь — обратный провал (не-драйв параллельной работы при корректном ожидании).
-- `~/dotfiles/.claude/rules/overnight-orchestration-design.md` — топология автономной оркестрации (failure-modes); это правило добавляет ось «пассивность vs проактивность».
-- `~/dotfiles/.claude/rules/pre-spawn-parallel-session-conflict-check.md` — disjoint-check перед запуском параллельного трека.
+- `~/.claude/skills/event-driven-coordination/SKILL.md` — комплементарная дисциплина (не polling); здесь — обратный провал (не-драйв параллельной работы при корректном ожидании).
+- `~/.claude/skills/overnight-orchestration-design/SKILL.md` — топология автономной оркестрации (failure-modes); это правило добавляет ось «пассивность vs проактивность».
+- `~/.claude/skills/pre-spawn-parallel-session-conflict-check/SKILL.md` — disjoint-check перед запуском параллельного трека.
 - `~/.claude/skills/orchestrator/SKILL.md` — роль оркестратора; этот принцип — операционный инвариант автономного окна (кандидат в R-invariant при следующей правке скилла).
 
 ⛤ **Эмпирика** (3 фрагм.: 1 секц. + 2 абз.) → `~/.claude/rules-archive/autonomous-mandate-drive-dont-idle.md`
