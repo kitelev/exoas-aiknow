@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: c0dd7ecf-a0fa-456f-abd6-842b9a91e7bb
 exo__Asset_createdAt: 2026-09-10T23:56:44
-exo__Asset_updatedAt: 2026-09-14T12:28:19
+exo__Asset_updatedAt: 2026-10-01T23:08:05
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -119,6 +119,18 @@ aiKnow__Memory_aboutConcept:
 - ✅ **Обход: `git push` по SSH** — он OAuth-scope'ом **не ограничен** (клон → замена файла →
   `git -C <d> commit <pathspec>` → `push origin HEAD:main`). ⛔ `gh auth refresh -s workflow`
   интерактивен и в автономной сессии непригоден.
+- ⛤ **ВТОРАЯ поверхность того же scope, и её отказ ГРОМКИЙ — GraphQL `updatePullRequestBranch`.**
+  `gh pr update-branch <N>` на PR, чей дифф трогает `.github/workflows/*`, отвечает дословно
+  `refusing to allow an OAuth App to create or update workflow .github/workflows/ci.yml without`
+  `workflow scope (updatePullRequestBranch)` — то есть называет причину САМ, в отличие от 404 выше,
+  поэтому дискриминатор «одинаковый отказ на разных входах» здесь не нужен.
+  ⚠ Tell: ветку PR обновить нельзя, а дифф у него — только workflow-файлы.
+  ✅ **Обход дешевле SSH-push, когда PR авторства Dependabot: комментарий `@dependabot rebase`**
+  (его app-токен scope несёт), либо `@dependabot recreate`, если база уехала и ветка `DIRTY` —
+  recreate перегенерирует дифф против текущего main и не оставит мусорных строк по файлам,
+  которые main уже поднял. ⛔ Руками в чужую ветку не пушить.
+  _(2026-10-01: три workflow-PR #4188/#4190/#4189; токен нёс `admin:public_key, gist, read:org, repo`
+  без `workflow`; rebase/recreate от dependabot отрабатывал 57-64 с.)_
 
 ## Когда правило срабатывает
 
