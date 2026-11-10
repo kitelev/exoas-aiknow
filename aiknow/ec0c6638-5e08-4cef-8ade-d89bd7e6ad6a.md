@@ -1,7 +1,7 @@
 ---
 exo__Asset_uid: ec0c6638-5e08-4cef-8ade-d89bd7e6ad6a
 exo__Asset_createdAt: 2026-09-06T22:10:47
-exo__Asset_updatedAt: 2026-11-10T02:30:55
+exo__Asset_updatedAt: 2026-11-11T01:33:50
 exo__Instance_class:
   - "[[39a39239-2a97-483a-ba91-fb01bf5c85f3]]"
 exo__Asset_createdBy: "[[4ef3962d-b8a7-42b5-bd28-88ec846f1d13]]"
@@ -79,6 +79,12 @@ function makeApp(opts) {
 ```
 
 The fake should produce **realistic null/empty results** for inputs that wouldn't match in real Obsidian. Then your fix must do the real work (iterate, scan, match) — the test exercises the work, not the stub.
+
+⛔ **Поддельный БИНАРЬ на PATH (стаб внешней программы) под jest — три ловушки, у каждой свой floor:**
+- **Дочерний процесс НЕ видит `process.env` теста:** jest отдаёт тесту свой объект, а `execFileSync`/`spawn` без `env` берут окружение процесса ⇒ правка `process.env.PATH` в тесте не доходит, ось запускает НАСТОЯЩИЙ бинарь. ✅ Предмет передаёт `env: process.env` явно (в проде равно умолчанию), а строку держит ось с подменой `node:child_process` до импорта.
+- **Настоящий бинарь держит секрет** (`gh auth token`) ⇒ сравнивать `token === FAKE` и ассертить булево: `toBe(FAKE)` при утечке PATH напечатает настоящий токен в лог.
+- **Ось с ТАЙМАУТОМ на свежесозданном стабе:** macOS проверяет новый исполняемый файл при первом запуске, под нагрузкой > 300 мс — стаб убит до первой строки ⇒ прогреть стаб одним запуском до оси (цена той же проверки — `integration-test-revert-verify` §A150).
+_(24f760d3, 11.11: ось с поддельным `gh` запустила настоящий и напечатала токен; гипотеза-прогрев — 1 набл.)_
 
 ## Verification path
 
